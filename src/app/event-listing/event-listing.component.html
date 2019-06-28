@@ -1,0 +1,122 @@
+<div class="search" *ngIf="page1">
+  <input type="text" name="search" id="search" placeholder="SEARCH EVENTS" [(ngModel)]="searchQuery"
+    (keyup.enter)="search()"><button class="button2" (click)="search()">search</button>
+</div>
+<div class="search" *ngIf="searchFlag && !page1 && !booking" id="search">
+  <div *ngFor="let searchRe of searchRes">
+    <div *ngIf="searchRe.name != undefined">
+      <h2>{{searchRe.name}}</h2>
+      <h4>{{searchRe.date}}</h4>
+      <p><img src="{{searchRe.url}}" height="200" width="650"></p>
+      <p *ngIf="searchRe.savailable>=1"><button (click)="book(searchRe)">Book Now!</button>&nbsp;&nbsp;<button
+          (click)="cancel()">Back</button></p>
+      <p *ngIf="searchRe.savailable==0">Sold Out! &nbsp;&nbsp;<button (click)="cancel()">Back</button></p>
+      <p></p><br />
+    </div>
+  </div>
+</div>
+<div class="events" *ngIf="page1 && !searchFlag && !bookingFlag && !booking">
+  <div *ngFor="let event of events; let i = index; let even = even"><br />
+    <span *ngIf="even">
+      <div id="first">
+        <h2>{{events[i].name}}</h2>
+        <h4>{{events[i].date}}</h4>
+        <p><img src="{{events[i].url}}" height="100" width="200"></p>
+        <p *ngIf="events[i].savailable>=1"><button class="button1" (click)="book(events[i])">Book Now!</button></p>
+        <p *ngIf="events[i].savailable==0">Sold Out!</p>
+      </div>
+      <div id="second">
+        <h2>{{events[i+1].name}}</h2>
+        <h4>{{events[i+1].date}}</h4>
+        <p><img src="{{events[i+1].url}}" height="100" width="200"></p>
+        <p *ngIf="events[i+1].savailable>=1"><button class="button1" (click)="book(events[i+1])">Book Now!</button></p>
+        <p *ngIf="events[i+1].savailable==0">Sold Out!</p>
+      </div>
+    </span>
+  </div>
+</div>
+<div *ngIf="!page1 && !searchFlag" id="book">
+  <h1>{{pevents.name}}</h1>
+  <p *ngIf="!booking">Number of available seats : {{pevents.savailable}}</p>
+  <p *ngIf="!booking"><img src="{{pevents.url}}" height="300" width="400"></p>
+  <h3>Date: {{pevents.date}}</h3>
+  <p *ngIf="!booking"><button (click)="fclick(pevents)" class="button3"
+      *ngIf="!bookingFlag">Book</button>&nbsp;&nbsp;<button (click)="cancel()" class="button3"
+      *ngIf="!bookingFlag">Cancel</button></p>
+</div>
+<div class="booking" *ngIf="bookingFlag && !booking" id="book1">
+  <div>Full Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <input type="text" name="selfName" id="selfName"
+      [pattern]="'^[a-zA-Z \-\']$'" class="form-control" required minlength="4" [(ngModel)]="selfName">
+    <div *ngIf="selfName.invalid && (selfName.dirty || selfName.touched)" class="alert alert-danger">
+      <div *ngIf="selfName.errors?.required">
+        Please enter your name
+      </div>
+      <div *ngIf="selfName.errors?.pattern">
+        Only letters and spaces are allowed
+      </div>
+    </div>
+  </div>
+  <div>Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <input type="text"
+      class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" id="email" name="email" [(ngModel)] = "email"
+      #emailref="ngModel">
+    <div *ngIf="emailref.errors &&(emailref.touched || emailref.dirty)" class="alert alert-danger">
+      <div *ngIf="email.errors?.required">
+        Please enter your email
+      </div>
+      <div [hidden]="!emailref.errors?.pattern">
+        Invalid email
+      </div>
+    </div>
+  </div>
+  <div>Phone number: <input type="text" name="phone" id="phone" class="form-control" pattern="[0-9]{10}$" [(ngModel)]="phone"
+    #emailref="ngModel">
+    <div *ngIf="phone.errors?.required">
+      Please enter your phone number
+    </div>
+
+    <div [hidden]="!phoneref.errors?.pattern">
+      Invalid phone number
+    </div>
+  </div>
+  <form [formGroup]="valueForm">
+    <select formControlName="valueControl">
+      <option [value]="value" *ngFor="let value of values">{{value}}</option>
+    </select><br />
+  </form><span *ngIf="aseat"><br />Number of seats selected is more than available seats<br /></span>
+  <br />
+  <div *ngIf="two">Attendee 2&nbsp;&nbsp;&nbsp;&nbsp;:<input type="text" id="twoName" name="twoName"
+      class="form-control" required minlength="4" [(ngModel)]="twoName">
+    <div *ngIf="twoName.errors?.required">
+      Please enter name of attendee 2
+    </div>
+  </div>
+  <div *ngIf="three">Attendee 3&nbsp;&nbsp;&nbsp;&nbsp;:<input type="text" id="threeName" name="threeName"
+      class="form-control" required minlength="4" [(ngModel)]="threeName">
+    <div *ngIf="threeName.errors?.required">
+      Please enter name of attendee 3
+    </div>
+  </div>
+  <div *ngIf="four">Attendee 4&nbsp;&nbsp;&nbsp;&nbsp;:<input type="text" id="fourName" name="fourName"
+      class="form-control" required minlength="4" [(ngModel)]="fourName">
+    <div *ngIf="fourName.errors?.required">
+      Please enter name of attendee 4
+    </div>
+  </div>
+  <div *ngIf="five">Attendee 5&nbsp;&nbsp;&nbsp;&nbsp;:<input type="text" id="fiveName" name="fiveName"
+      class="form-control" required minlength="4" [(ngModel)]="fiveName">
+    <div *ngIf="fiveName.errors?.required">
+      Please enter name of attendee 5
+    </div>
+  </div>
+  <div *ngIf="six">Attendee 6&nbsp;&nbsp;&nbsp;&nbsp;:<input type="text" id="sixName" name="sixName"
+      class="form-control" required minlength="4" [(ngModel)]="sixName">
+    <div *ngIf="sixName.errors?.required">
+      Please enter name of attendee 6
+    </div>
+  </div>
+  <button (click)="bbook()" class="button3">Book now</button>&nbsp;&nbsp;&nbsp;
+  <button (click)="cancel()" class="button3">Cancel</button>
+</div>
+<div *ngIf="booking" class="n">
+  <p>Tickets booked</p>
+</div>

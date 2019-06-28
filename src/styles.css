@@ -1,1 +1,46 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+    background-color: #fffff0;
+    background-image: url("https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+    background-repeat: no-repeat;
+}
+.button1 {
+    display: block;
+    width: 50%;
+    border: none;
+    background-color: #4CAF50;
+    padding: 14px 20px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .button3{
+    width: 20%;
+    text-align: center;
+    border: none;
+    background-color: #4CAF50;
+    padding: 14px 20px;
+    font-size: 14px;
+    cursor: pointer;
+
+  }
+  .button2 {
+      display: block;
+      width: 20%;
+      border: none;
+      background-color: #4CAF50;
+      padding: 14px 20px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+h2, h4{
+   color: rgb(4, 65, 6); 
+   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+}
+  input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #4CAF50;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
